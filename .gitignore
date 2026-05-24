@@ -1,0 +1,7 @@
+# Dependencies
+__pycache__/
+*.pyc
+
+# Test outputs
+test_*.mid
+test_*.ust

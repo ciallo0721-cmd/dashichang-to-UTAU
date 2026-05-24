@@ -18,7 +18,6 @@ UFDATA format: English-keyed JSON, simpler structure.
 """
 
 import json
-import math
 from typing import List, Optional
 
 
@@ -125,7 +124,6 @@ def parse_dsc(filepath: str) -> dict:
 
     for track in vocal_tracks:
         track_notes = track.get('音符', [])
-        track_bpm = track.get('速度', bpm)
 
         for note in track_notes:
             # Skip rest notes
@@ -187,7 +185,7 @@ def detect_format(filepath: str) -> str:
         raise ValueError("File is not valid JSON")
 
     # Check for UFDATA format (English keys)
-    if 'formatVersion' in data or 'project' in data:
+    if 'formatVersion' in data:
         return 'ufdata'
 
     # Check for DSC format (Chinese keys)

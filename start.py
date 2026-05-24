@@ -19,7 +19,7 @@ import sys
 
 from converter import parse_file, detect_format
 from midi_writer import build_midi
-from ust_writer import build_ust
+from ust_writer import build_ust, midi_note_to_name
 
 
 def print_banner():
@@ -108,7 +108,6 @@ def main():
     # Show first few notes
     print("\nFirst 5 notes:")
     for n in data['notes'][:5]:
-        from ust_writer import midi_note_to_name
         print(f"  [{n['start_tick']:>6}] {midi_note_to_name(n['pitch']):>4}  {n['lyric']}  "
               f"({n['duration_ticks']} ticks)")
 
@@ -157,6 +156,7 @@ def main():
                 notes=data['notes'],
                 bpm=data['bpm'],
                 project_name=data['project_name'],
+                resolution=data['resolution'],
             )
             with open(ust_path, 'w', encoding='utf-8') as f:
                 f.write(ust_data)

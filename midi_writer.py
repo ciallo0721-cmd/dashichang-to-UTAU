@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-MIDI file writer for UTAU-compatible output (SMF Format 0).
+MIDI file writer for UTAU-compatible output (SMF Format 1).
 
 Generates standard MIDI files with:
 - Track 1 (control): tempo, time signature, key signature, UTAU settings
@@ -28,9 +28,10 @@ def _write_varlen(value: int) -> bytes:
 
 
 def _make_string_meta(event_type: int, text: str) -> bytes:
-    """Create a meta event with a text string."""
+    """Create a meta event with a text string. Length uses variable-length quantity."""
     encoded = text.encode('utf-8')
-    return bytes([0xFF, event_type, len(encoded)]) + encoded
+    length_bytes = _write_varlen(len(encoded))
+    return bytes([0xFF, event_type]) + length_bytes + encoded
 
 
 def build_midi(
@@ -42,7 +43,7 @@ def build_midi(
     time_denominator: int = 4,
 ) -> bytes:
     """
-    Build a complete MIDI file (SMF Format 0) from note data.
+    Build a complete MIDI file (SMF Format 1) from note data.
 
     Args:
         notes: List of dicts with keys:

@@ -21,6 +21,7 @@ def build_ust(
     bpm: float = 120.0,
     project_name: str = "Untitled",
     voice_dir: str = "",
+    resolution: int = 480,
 ) -> str:
     """
     Build a UST file string from note data.
@@ -47,7 +48,7 @@ def build_ust(
     lines.append("[#SETTINGS]")
     lines.append(f"Tempo={bpm:.2f}")
     lines.append(f"VoiceDir={voice_dir}")
-    lines.append("Outfile=}")
+    lines.append("Outfile=")
     lines.append("CacheDir=")
     lines.append("Mode2=True")
 
@@ -56,9 +57,8 @@ def build_ust(
 
     # Calculate tick-to-millisecond conversion
     # At given BPM, one quarter note = 60000/BPM ms
-    # If 480 ticks per quarter note, then 1 tick = (60000/BPM)/480 ms
-    ticks_per_qn = 480
-    ms_per_tick = (60000.0 / bpm) / ticks_per_qn
+    # 1 tick = (60000/BPM) / resolution ms
+    ms_per_tick = (60000.0 / bpm) / resolution
 
     for i, note in enumerate(sorted_notes):
         duration_ticks = max(1, note['duration_ticks'])

@@ -50,10 +50,7 @@ python start.py
 
 ```
 dashichang-to-UTAU/
-├── start.py          # CLI 入口
-├── converter.py      # DSC / UFDATA 格式检测与解析
-├── midi_writer.py    # UTAU 兼容 MIDI 生成
-├── ust_writer.py     # UST 文件生成
+├── start.py          # z
 └── README.md
 ```
 

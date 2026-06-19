@@ -50,7 +50,7 @@ python start.py
 
 ```
 dashichang-to-UTAU/
-├── start.py          # z
+├── start.py          # 主程序
 └── README.md
 ```
 
